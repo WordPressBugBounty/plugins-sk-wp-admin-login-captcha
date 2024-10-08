@@ -1,0 +1,28 @@
+.skwpalc-content,.skwpalc-help-sidebar {
+    background-color:  #fff;
+    border: 1px solid #e5e5e5;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+    float: left;
+    box-sizing: border-box;
+}
+.skwpalc-content{  
+    width: 70%;
+    /*padding: 5px;*/
+}
+.skwpalc-content label{margin-left: 15px}
+.skwpalc-content input[type="text"],.skwpalc-content p.description{margin-left: 9px;
+                                                      width: 96% !important;}
+.skwpalc-content input[type="checkbox"]{margin-left: 9px}
+.skwpalc-content h2,.skwpalc-help-sidebar h2 {
+    border-bottom: 1px solid #e7e7e7;
+    border-radius: 2px;
+    margin: 0;
+    padding: 6px 12px 7px;  font-size: 15px;
+}
+.skwpalc-content input[type='submit']{float: right;margin: 11px;}
+.skwpalc-help-sidebar{
+    /*padding: 2px;*/
+    width: 28%;margin-left: 5px
+}
+.skwpalc-help-sidebar img{width: 100%}
+

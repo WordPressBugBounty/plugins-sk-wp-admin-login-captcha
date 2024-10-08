@@ -1,0 +1,3 @@
+/*@media screen and (max-height: 575px){*/
+    #skwpalc-google-captcha, .g-recaptcha {transform:scale(0.90);-webkit-transform:scale(0.90);transform-origin:0 0;-webkit-transform-origin:0 0;}
+/*}*/ 
