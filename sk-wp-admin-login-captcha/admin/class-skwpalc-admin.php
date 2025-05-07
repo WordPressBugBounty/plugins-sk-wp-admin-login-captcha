@@ -2,61 +2,88 @@
 
 if (!class_exists('SKWPALC_Admin')) {
 
-    class SKWPALC_Admin {
+    class SKWPALC_Admin
+    {
 
         private $settings_api;
 
-        public function __construct() {
+        public function __construct()
+        {
             $this->load_dependencies();
         }
 
-        public function load_dependencies() {
+        public function load_dependencies()
+        {
             require_once SKWPALC_DIRECTORY_PATH . 'admin/includes/class-skwpalc-settings-api.php';
         }
 
-        public function enqueue_styles() {
+        public function enqueue_styles()
+        {
             wp_enqueue_style(SKWPALC_PREFIX . '-admin', plugin_dir_url(SKWPALC_FILE_PATH) . 'admin/css/' . SKWPALC_PREFIX . '-admin.css', array(), SKWPALC_VERSION, 'all');
             wp_enqueue_style(SKWPALC_PREFIX . '-admin-responsiveslides', plugin_dir_url(SKWPALC_FILE_PATH) . 'admin/css/' . SKWPALC_PREFIX . '-responsiveslides.css', array(), SKWPALC_VERSION, 'all');
         }
 
-        public function enqueue_scripts() {
+        public function enqueue_scripts()
+        {
             wp_enqueue_script(SKWPALC_PREFIX . '-responsiveslides', plugin_dir_url(SKWPALC_FILE_PATH) . 'admin/js/' . SKWPALC_PREFIX . '-responsiveslides.min.js', array('jquery'), SKWPALC_VERSION, false);
             wp_enqueue_script(SKWPALC_PREFIX . '-admin', plugin_dir_url(SKWPALC_FILE_PATH) . 'admin/js/' . SKWPALC_PREFIX . '-admin.js', array('jquery'), SKWPALC_VERSION, true);
         }
 
-        public function admin_init() {
+        public function admin_init()
+        {
             $this->settings_api = new SKWPALC_Settings_API();
 
             //set the settings
             $this->settings_api->set_sections(array(
                 array(
+                    'id' => SKWPALC_PREFIX . '_general_config_captcha',
+                    'title' => __('General Configuration', 'sk-wp-admin-login-captcha'),
+                    'help_content' => '<ul class="skwpalc-slider">'
+                        . '<li><img src="' . plugin_dir_url(SKWPALC_FILE_PATH) . 'admin/images/captcha-math-item-1.png' . '"/><li>'
+                        . '<li><img src="' . plugin_dir_url(SKWPALC_FILE_PATH) . 'admin/images/captcha-math-item-2.png' . '"/><li>'
+                        . '</ul>'
+                ),
+                array(
                     'id' => SKWPALC_PREFIX . '_math_captcha',
                     'title' => __('Math Captcha', 'sk-wp-admin-login-captcha'),
                     'help_content' => '<ul class="skwpalc-slider">'
-                    . '<li><img src="' . plugin_dir_url(SKWPALC_FILE_PATH) . 'admin/images/captcha-math-item-1.png' . '"/><li>'
-                    . '<li><img src="' . plugin_dir_url(SKWPALC_FILE_PATH) . 'admin/images/captcha-math-item-2.png' . '"/><li>'
-                    . '</ul>'
+                        . '<li><img src="' . plugin_dir_url(SKWPALC_FILE_PATH) . 'admin/images/captcha-math-item-1.png' . '"/><li>'
+                        . '<li><img src="' . plugin_dir_url(SKWPALC_FILE_PATH) . 'admin/images/captcha-math-item-2.png' . '"/><li>'
+                        . '</ul>'
                 ),
-//            array(
-//                'id' => SKWPALC_PREFIX . '_image_captcha',
-//                'title' => __('Image Captcha', 'sk-wp-admin-login-captcha')
-//            ),
+                //            array(
+                //                'id' => SKWPALC_PREFIX . '_image_captcha',
+                //                'title' => __('Image Captcha', 'sk-wp-admin-login-captcha')
+                //            ),
                 array(
                     'id' => SKWPALC_PREFIX . '_google_captcha',
-                    'title' => __('Google Captcha', 'sk-wp-admin-login-captcha'),
+                    'title' => __('Google Captcha V2', 'sk-wp-admin-login-captcha'),
                     'help_content' => '<ul class="skwpalc-slider">'
-                    . '<li><img src="' . plugin_dir_url(SKWPALC_FILE_PATH) . 'admin/images/captcha-google-item-1.png' . '"/><li>'
-                    . '<li><img src="' . plugin_dir_url(SKWPALC_FILE_PATH) . 'admin/images/captcha-google-item-2.png' . '"/><li>'
-                    . '</ul>'
+                        . '<li><img src="' . plugin_dir_url(SKWPALC_FILE_PATH) . 'admin/images/captcha-google-item-1.png' . '"/><li>'
+                        . '<li><img src="' . plugin_dir_url(SKWPALC_FILE_PATH) . 'admin/images/captcha-google-item-2.png' . '"/><li>'
+                        . '</ul>'
                 ),
             ));
             $this->settings_api->set_fields(array(
+                SKWPALC_PREFIX . '_general_config_captcha' => array(
+                    array(
+                        'name' => 'captcha_type_to_use',
+                        'label' => __('Captcha to use ', 'sk-wp-skeleton-plugin'),
+                        'desc' => __('<br/>Select the captcha type which you want to display on the admin. By default math captcha will be displayed <br/><br/> <strong>==>>After saving, Open the wordpress admin panel on a private tab/window to check the captcha is working fine<<==</strong>', 'sk-wp-skeleton-plugin'),
+                        'type' => 'radio',
+                        'options' => array(
+                            'math' => 'Math',
+                            'google' => 'Google ReCaptcha V2'
+                        )
+                    ),
+                  
+                ),
                 SKWPALC_PREFIX . '_math_captcha' => array(
                     array(
                         'name' => 'captcha_question',
                         'label' => __('Captcha Question', 'sk-wp-admin-login-captcha'),
                         'desc' => __('Use _CAPTCHA_ in your question.Ex. What is _CAPTCHA_?', 'sk-wp-admin-login-captcha'),
-//                    'placeholder' => __('What is _CAPTCHA_?', 'sk-wp-admin-login-captcha'),
+                        //                    'placeholder' => __('What is _CAPTCHA_?', 'sk-wp-admin-login-captcha'),
                         'type' => 'text',
                         'default' => '',
                         'sanitize_callback' => 'sanitize_text_field'
@@ -68,7 +95,7 @@ if (!class_exists('SKWPALC_Admin')) {
                         'type' => 'multicheck',
                         'options' => array(
                             'plus' => '+',
-//                        'minus' => '-',
+                            //                        'minus' => '-',
                             'multiplication' => '*',
                         )
                     ),
@@ -81,23 +108,23 @@ if (!class_exists('SKWPALC_Admin')) {
                         'sanitize_callback' => array($this, 'captcha_timestamp_callback')
                     ),
                 ),
-//            SKWPALC_PREFIX . '_image_captcha' => array(
-//                array(
-//                    'name' => 'color',
-//                    'label' => __('Color', 'sk-wp-admin-login-captcha'),
-//                    'desc' => __('Color description', 'sk-wp-admin-login-captcha'),
-//                    'type' => 'color',
-//                    'default' => ''
-//                ),
-//                array(
-//                    'name' => 'captcha_timestamp',
-//                    'label' => __('Captcha Timestamp', 'sk-wp-admin-login-captcha'),
-//                    'type' => 'text',
-//                    'default' => '',
-//                    'class' => SKWPALC_PREFIX . '-captcha-type-input  hidden',
-//                    'sanitize_callback' => array($this, 'captcha_timestamp_callback')
-//                ),
-//            ),
+                //            SKWPALC_PREFIX . '_image_captcha' => array(
+                //                array(
+                //                    'name' => 'color',
+                //                    'label' => __('Color', 'sk-wp-admin-login-captcha'),
+                //                    'desc' => __('Color description', 'sk-wp-admin-login-captcha'),
+                //                    'type' => 'color',
+                //                    'default' => ''
+                //                ),
+                //                array(
+                //                    'name' => 'captcha_timestamp',
+                //                    'label' => __('Captcha Timestamp', 'sk-wp-admin-login-captcha'),
+                //                    'type' => 'text',
+                //                    'default' => '',
+                //                    'class' => SKWPALC_PREFIX . '-captcha-type-input  hidden',
+                //                    'sanitize_callback' => array($this, 'captcha_timestamp_callback')
+                //                ),
+                //            ),
                 SKWPALC_PREFIX . '_google_captcha' => array(
                     array(
                         'name' => 'google_site_key',
@@ -120,8 +147,8 @@ if (!class_exists('SKWPALC_Admin')) {
                     array(
                         'name' => 'captcha_label',
                         'label' => __('Captcha Label', 'sk-wp-admin-login-captcha'),
-//                    'desc' => __('Use _CAPTCHA_ in your question.Ex. What is _CAPTCHA_?', 'sk-wp-admin-login-captcha'),
-//                    'placeholder' => __('What is _CAPTCHA_?', 'sk-wp-admin-login-captcha'),
+                        //                    'desc' => __('Use _CAPTCHA_ in your question.Ex. What is _CAPTCHA_?', 'sk-wp-admin-login-captcha'),
+                        //                    'placeholder' => __('What is _CAPTCHA_?', 'sk-wp-admin-login-captcha'),
                         'type' => 'text',
                         'default' => '',
                         'sanitize_callback' => 'sanitize_text_field'
@@ -141,16 +168,16 @@ if (!class_exists('SKWPALC_Admin')) {
             $this->settings_api->admin_init();
         }
 
-        public function captcha_timestamp_callback($val) {
+        public function captcha_timestamp_callback($val)
+        {
             return time();
         }
 
-        public function admin_menu() {
+        public function admin_menu()
+        {
             add_options_page(SKWPALC_NAME, SKWPALC_NAME, 'manage_options', SKWPALC_PREFIX . '_page', function () {
                 SKWPALC_Template::include_template('skwpalc-admin-page', 'admin', array('settings_api_obj' => $this->settings_api));
             });
         }
-
     }
-
 }

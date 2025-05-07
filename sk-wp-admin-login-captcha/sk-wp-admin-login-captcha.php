@@ -1,10 +1,10 @@
 <?php
 
 /**
- * Plugin Name:       SK WP Admin Login Captcha
+ * Plugin Name:       SKP WP Admin Login Captcha
  * Plugin URI:        https://wordpress.org/plugins/sk-wp-admin-login-captcha/
- * Description:       Simple and Friendly plugin to secure your wordpress admin panel by adding captcha on the login page.
- * Version:           1.0.3
+ * Description:       Simple, Lightweightht and User Friendly plugin to secure your wordpress admin panel by adding captcha on the login page.
+ * Version:           1.0.4
  * Author:            Sandeep Kumar
  * Author URI:        https://profiles.wordpress.org/sk335577
  * License:           GPL-2.0+
@@ -20,11 +20,11 @@ if (!defined('WPINC')) {
 /**
  * define plugin setting constants 
  */
-define('SKWPALC_NAME', 'SK WP Admin Login Captcha');
-define('SKWPALC_COMMERCIAL_NAME', 'SK WP Admin Login Captcha 1.0.0');
+define('SKWPALC_NAME', 'SKP WP Admin Login Captcha');
+define('SKWPALC_COMMERCIAL_NAME', 'SKP WP Admin Login Captcha 1.0.4');
 define('SKWPALC_SLUG', 'sk-wp-admin-login-captcha'); 
 define('SKWPALC_PREFIX', 'skwpalc');
-define('SKWPALC_VERSION', '1.0.0');
+define('SKWPALC_VERSION', '1.0.4');
 
 define('SKWPALC_FILE_PATH', __FILE__);
 define('SKWPALC_DIRECTORY_PATH', plugin_dir_path(__FILE__));
