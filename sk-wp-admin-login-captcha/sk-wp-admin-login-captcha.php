@@ -4,7 +4,7 @@
  * Plugin Name:       SKP WP Admin Login Captcha
  * Plugin URI:        https://wordpress.org/plugins/sk-wp-admin-login-captcha/
  * Description:       Simple, Lightweightht and User Friendly plugin to secure your wordpress admin panel by adding captcha on the login page.
- * Version:           1.0.4
+ * Version:           1.0.5
  * Author:            Sandeep Kumar
  * Author URI:        https://profiles.wordpress.org/sk335577
  * License:           GPL-2.0+

@@ -39,7 +39,7 @@ if (!class_exists('SKWPALC_Core')) {
             $plugin_public = new SKWPALC_Public();
             $this->loader->add_action('init', $plugin_public, 'init', 1);
             $this->loader->add_action('login_form', $plugin_public, 'login_form');
-            $this->loader->add_action('authenticate', $plugin_public, 'authenticate', 1);
+            $this->loader->add_action('authenticate', $plugin_public, 'authenticate', 30,3);
             $this->loader->add_action('login_enqueue_scripts', $plugin_public, 'login_enqueue_scripts', 1);
             $this->loader->add_action('login_enqueue_scripts', $plugin_public, 'login_enqueue_styles', 10);
             $this->loader->add_action('login_footer', $plugin_public, 'login_footer');

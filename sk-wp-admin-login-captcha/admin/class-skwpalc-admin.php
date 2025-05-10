@@ -63,17 +63,26 @@ if (!class_exists('SKWPALC_Admin')) {
                         . '<li><img src="' . plugin_dir_url(SKWPALC_FILE_PATH) . 'admin/images/captcha-google-item-2.png' . '"/><li>'
                         . '</ul>'
                 ),
+                array(
+                    'id' => SKWPALC_PREFIX . '_google_captcha_v3',
+                    'title' => __('Google Captcha V3', 'sk-wp-admin-login-captcha'),
+                    'help_content' => '<ul class="skwpalc-slider">'
+                        . '<li><img src="' . plugin_dir_url(SKWPALC_FILE_PATH) . 'admin/images/captcha-google-v3-item-1.png' . '"/><li>'
+                        . '<li><img src="' . plugin_dir_url(SKWPALC_FILE_PATH) . 'admin/images/captcha-google-v3-item-2.png' . '"/><li>'
+                        . '</ul>'
+                ),
             ));
             $this->settings_api->set_fields(array(
                 SKWPALC_PREFIX . '_general_config_captcha' => array(
                     array(
                         'name' => 'captcha_type_to_use',
                         'label' => __('Captcha to use ', 'sk-wp-skeleton-plugin'),
-                        'desc' => __('<br/>Select the captcha type which you want to display on the admin. By default math captcha will be displayed <br/><br/> <strong>==>>After saving, Open the wordpress admin panel on a private tab/window to check the captcha is working fine<<==</strong>', 'sk-wp-skeleton-plugin'),
+                        'desc' => __('<br/>Select the captcha type which you want to display on the admin. By default math captcha will be displayed. <br/><br/> <strong>After saving, Open your wordpress website admin panel in a private/incognito tab/window to check the captcha is showing and working fine.</strong>', 'sk-wp-skeleton-plugin'),
                         'type' => 'radio',
                         'options' => array(
                             'math' => 'Math',
-                            'google' => 'Google ReCaptcha V2'
+                            'google' => 'Google ReCaptcha V2',
+                            'google_captcha_v3' => 'Google ReCaptcha V3'
                         )
                     ),
                   
@@ -91,7 +100,7 @@ if (!class_exists('SKWPALC_Admin')) {
                     array(
                         'name' => 'captcha_operators',
                         'label' => __('Select Operators', 'sk-wp-skeleton-plugin'),
-                        'desc' => __('Select the math operators. ', 'sk-wp-skeleton-plugin'),
+                        'desc' => __('Select the math operators.  <br/><br/> <strong>After saving, Open your wordpress website admin panel in a private/incognito tab/window to check the captcha is showing and working fine.</strong>', 'sk-wp-skeleton-plugin'),
                         'type' => 'multicheck',
                         'options' => array(
                             'plus' => '+',
@@ -147,7 +156,7 @@ if (!class_exists('SKWPALC_Admin')) {
                     array(
                         'name' => 'captcha_label',
                         'label' => __('Captcha Label', 'sk-wp-admin-login-captcha'),
-                        //                    'desc' => __('Use _CAPTCHA_ in your question.Ex. What is _CAPTCHA_?', 'sk-wp-admin-login-captcha'),
+                                           'desc' => __(' <br/><br/> <strong>After saving, Open your wordpress website admin panel in a private/incognito tab/window to check the captcha is showing and working fine.</strong>', 'sk-wp-admin-login-captcha'),
                         //                    'placeholder' => __('What is _CAPTCHA_?', 'sk-wp-admin-login-captcha'),
                         'type' => 'text',
                         'default' => '',
@@ -155,6 +164,43 @@ if (!class_exists('SKWPALC_Admin')) {
                     ),
                     array(
                         'name' => 'captcha_timestamp',
+                        'label' => __('Captcha Status', 'sk-wp-admin-login-captcha'),
+                        'type' => 'text',
+                        'default' => '',
+                        'class' => SKWPALC_PREFIX . '-captcha-type-input hidden',
+                        'sanitize_callback' => array($this, 'captcha_timestamp_callback')
+                    ),
+                ),
+                SKWPALC_PREFIX . '_google_captcha_v3' => array(
+                    array(
+                        'name' => 'google_site_key_v3',
+                        'label' => __('Site key', 'sk-wp-admin-login-captcha'),
+                        'desc' => __('Copy and Paste Site key and Secret key from <a href="https://www.google.com/recaptcha/intro/" target="_blank">Google</a>', 'sk-wp-admin-login-captcha'),
+                        'placeholder' => __('', 'sk-wp-admin-login-captcha'),
+                        'type' => 'text',
+                        'default' => '',
+                        'sanitize_callback' => 'sanitize_text_field'
+                    ),
+                    array(
+                        'name' => 'google_secret_key_v3',
+                        'label' => __('Secret key', 'sk-wp-admin-login-captcha'),
+                        'desc' => __('Copy and Paste Site key and Secret key from <a href="https://www.google.com/recaptcha/intro/" target="_blank">Google</a>', 'sk-wp-admin-login-captcha'),
+                        'placeholder' => __('', 'sk-wp-admin-login-captcha'),
+                        'type' => 'text',
+                        'default' => '',
+                        'sanitize_callback' => 'sanitize_text_field'
+                    ),
+                    array(
+                        'name' => 'captcha_label_v3',
+                        'label' => __('Captcha Label', 'sk-wp-admin-login-captcha'),
+                                           'desc' => __(' <br/><br/> <strong>After saving, Open your wordpress website admin panel in a private/incognito tab/window to check the captcha is showing and working fine.</strong>', 'sk-wp-admin-login-captcha'),
+                        //                    'placeholder' => __('What is _CAPTCHA_?', 'sk-wp-admin-login-captcha'),
+                        'type' => 'text',
+                        'default' => '',
+                        'sanitize_callback' => 'sanitize_text_field'
+                    ),
+                    array(
+                        'name' => 'captcha_timestamp_v3',
                         'label' => __('Captcha Status', 'sk-wp-admin-login-captcha'),
                         'type' => 'text',
                         'default' => '',

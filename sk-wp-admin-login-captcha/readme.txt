@@ -14,8 +14,9 @@ Add Google or Mathematical captcha on wordpress login page
 Simple, Lightweightht and User Friendly plugin to secure your wordpress admin panel by adding captcha on the login page.
 
 Features: 
-*   Add mathematical captcha
-*   Add google captcha
+*   Mathematical Captcha
+*   Google reCAPTCHA V2
+*   Google reCAPTCHA V3
 
 
 == Installation ==
@@ -44,6 +45,8 @@ Please make sure 'Site Key' and 'Site Secret' fields on the plugin's google capt
 
 == Changelog ==
 
+= 1.0.5 =
+* Add Google reCAPTCHA V3 support
 
 = 1.0.4 =
 * Tested with wordpress 6.8.1 and it is working fine
